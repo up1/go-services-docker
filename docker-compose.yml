@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+   service01:
+     build:
+       context: ./service01
+     ports:
+       - "80:80"
+     environment:
+       - PORT=80
+       - SERVICE02=service02
+       - GIN_MODE=release
+
+   service02:
+     build:
+       context: ./service02
+     environment:
+       - PORT=80
+       - GIN_MODE=release
