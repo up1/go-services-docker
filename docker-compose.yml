@@ -4,8 +4,6 @@ services:
    service01:
      build:
        context: ./service01
-     # ports:
-     #   - "80:80"
      environment:
        - PORT=80
        - SERVICE02=service02
