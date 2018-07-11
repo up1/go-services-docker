@@ -4,12 +4,20 @@ services:
    service01:
      build:
        context: ./service01
-     ports:
-       - 80:80
      environment:
        - PORT=80
        - SERVICE02=service02
        - GIN_MODE=release
+
+   nginx:
+    image: nginx:stable-alpine
+    ports:
+      - 8000:80
+    depends_on:
+      - service01
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./var/log/nginx:/var/log/nginx
 
    service02:
      build:
