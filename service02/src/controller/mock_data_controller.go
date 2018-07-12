@@ -15,6 +15,8 @@ func NewMockDataController(router *gin.Engine) MockDataController {
 }
 
 func (mdc *MockDataController) CreateRouting() {
+	// TODO add middleware
+	// Define endpoint
 	v1 := mdc.router.Group("/api/v1/mocks")
 	{
 		v1.GET("/", mdc.MockData)
