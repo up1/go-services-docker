@@ -6,11 +6,8 @@ import (
 )
 
 func main() {
-	mdc := controller.NewMockDataController()
 	router := gin.Default()
-	v1 := router.Group("/api/v1/mocks")
-	{
-		v1.GET("/", mdc.MockData)
-	}
+	mdc := controller.NewMockDataController(router)
+	mdc.CreateRouting()
 	router.Run()
 }

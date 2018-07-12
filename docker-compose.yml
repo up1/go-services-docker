@@ -10,7 +10,7 @@ services:
        - PORT=80
        - SERVICE02=service02
        - GIN_MODE=release
-       - STATSD=statsd:9125
+       - STATSD=statsd2:9125
 
    service02:
      build:

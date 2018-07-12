@@ -7,10 +7,18 @@ import (
 )
 
 type MockDataController struct {
+	router *gin.Engine
 }
 
-func NewMockDataController() MockDataController {
-	return MockDataController{}
+func NewMockDataController(router *gin.Engine) MockDataController {
+	return MockDataController{router}
+}
+
+func (mdc *MockDataController) CreateRouting() {
+	v1 := mdc.router.Group("/api/v1/mocks")
+	{
+		v1.GET("/", mdc.MockData)
+	}
 }
 
 func (mdc *MockDataController) MockData(c *gin.Context) {
