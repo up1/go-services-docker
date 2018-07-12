@@ -4,17 +4,11 @@ import (
 	"controller"
 	"github.com/alexcesaro/statsd"
 	"github.com/gin-gonic/gin"
-	"log"
 	"os"
 )
 
 func main() {
-	statsd, err := createStatsDClient(os.Getenv("STATSD"))
-	if err != nil {
-		log.Fatal("Unable to create statsD client")
-	}
-
-	hc := controller.NewHelloController(os.Getenv("SERVICE02"), statsd)
+	hc := controller.NewHelloController(os.Getenv("SERVICE02"))
 	router := gin.Default()
 	v1 := router.Group("/api/v1/hello")
 	{
