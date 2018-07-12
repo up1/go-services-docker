@@ -10,7 +10,6 @@ services:
        - PORT=80
        - SERVICE02=service02
        - GIN_MODE=release
-       - STATSD=statsd2:9125
 
    service02:
      build:
@@ -18,22 +17,3 @@ services:
      environment:
        - PORT=80
        - GIN_MODE=release
-
-   prometheus:
-     image: prom/prometheus
-     links:
-       - statsd
-     volumes:
-       - ./prometheus.yml:/etc/prometheus/prometheus.yml
-     ports:
-       - 9090:9090
-
-   statsd:
-     image: prom/statsd-exporter
-
-   graphana:
-     image: grafana/grafana
-     ports:
-       - 3000:3000
-     links:
-       - prometheus

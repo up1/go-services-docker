@@ -1,0 +1,39 @@
+version: '3.3'
+
+services:
+   service01:
+     build:
+       context: ./service01
+     ports:
+       - 80:80
+     environment:
+       - PORT=80
+       - SERVICE02=service02
+       - GIN_MODE=release
+       - STATSD=statsd:9125
+
+   service02:
+     build:
+       context: ./service02
+     environment:
+       - PORT=80
+       - GIN_MODE=release
+
+   prometheus:
+     image: prom/prometheus
+     links:
+       - statsd
+     volumes:
+       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+     ports:
+       - 9090:9090
+
+   statsd:
+     image: prom/statsd-exporter
+
+   graphana:
+     image: grafana/grafana
+     ports:
+       - 3000:3000
+     links:
+       - prometheus
